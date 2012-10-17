@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <ListPreference 
+        android:key="settings_camera"
+        android:title="@string/select_camera" />
+    <ListPreference
+        android:key="settings_range"
+        android:title="@string/fps" />
+    <ListPreference
+        android:key="settings_size"
+        android:title="@string/resolution" />
+    <EditTextPreference 
+        android:key="settings_quality"
+        android:title="@string/quality"
+        android:defaultValue="50" />
+    <EditTextPreference
+        android:key="settings_port"
+        android:title="@string/port"
+        android:defaultValue="8080" />
+
+</PreferenceScreen>

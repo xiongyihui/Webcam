@@ -1,0 +1,21 @@
+<resources>
+
+    <string name="app_name">Webcam</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">Webcam</string>
+    <string name="settings">Settings</string>
+    <string name="run_foreground">Run foreground</string>
+    <string name="run_background">Run background</string>
+    <string name="stop_running">Stop running</string>
+    <string name="can_not_open_camera">Can not open camera</string>
+    <string name="introducation">Make an Android phone a WiFi webcam</string>
+    <string name="service_started">Webcam started</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="select_camera">Select camera</string>
+    <string name="fps">Frame Per Second</string>
+    <string name="resolution">Resolution</string>
+    <string name="quality">Quality</string>
+    <string name="port">Port</string>
+
+</resources>
