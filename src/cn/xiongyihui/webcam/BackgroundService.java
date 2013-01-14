@@ -10,6 +10,8 @@ import android.content.SharedPreferences;
 import android.graphics.PixelFormat;
 import android.hardware.Camera;
 import android.hardware.Camera.Parameters;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -29,6 +31,8 @@ public class BackgroundService extends Service {
     
     private Camera mCamera;
     private MjpegServer mMjpegServer;
+    
+    private String mPort;
     
     
     public BackgroundService() {
@@ -144,6 +148,8 @@ public class BackgroundService extends Service {
         createOverlay();
         SurfaceHolder surfaceHolder = mSurfaceView.getHolder();
         surfaceHolder.addCallback(callback);
+        
+        mPort = PreferenceManager.getDefaultSharedPreferences(this).getString("settings_port", "8080");
 
         // Display a notification about us starting.  We put an icon in the status bar.
         showNotification();
@@ -185,7 +191,7 @@ public class BackgroundService extends Service {
     private void showNotification() {
         // In BackgroundService.this sample, we'll use the same text for the ticker and the expanded notification
         // CharSequence text = getText(R.string.service_started);
-        CharSequence text = "Webcam started";
+        CharSequence text = "View webcam at " + getIpAddr() + ":" + mPort;
 
         // Set the icon, scrolling text and timestamp
         Notification notification = new Notification(R.drawable.ic_stat_webcam, text,
@@ -202,6 +208,21 @@ public class BackgroundService extends Service {
         // Send the notification.
         startForeground( R.string.service_started, notification);
     }
+    
+    public String getIpAddr() {
+    	   WifiManager wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
+    	   WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+    	   int ip = wifiInfo.getIpAddress();
+
+    	   String ipString = String.format(
+    			   "%d.%d.%d.%d",
+    			   (ip & 0xff),
+    			   (ip >> 8 & 0xff),
+    			   (ip >> 16 & 0xff),
+    			   (ip >> 24 & 0xff));
+
+    	   return ipString;
+    	}
     
     /**
      * Create a surface view overlay (for the camera's preview surface).
