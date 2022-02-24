@@ -225,8 +225,8 @@ public class BackgroundService extends Service {
 		builder.setNumber(100);
 		builder.build();
 
-		notication = builder.getNotification();
-		manager.notify(11, notication);
+		notification = builder.getNotification();
+		manager.notify(11, notification);
     }
     
     public String getIpAddr() {
