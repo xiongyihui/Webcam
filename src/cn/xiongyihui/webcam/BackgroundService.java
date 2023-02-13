@@ -59,7 +59,7 @@ public class BackgroundService extends Service {
                 String previewSizeString = preferences.getString("settings_size", null);       
                 String rangeString = preferences.getString("settings_range", null);
                 String qualityString = preferences.getString("settings_quality", "50");
-                String portString = preferences.getString("settings_port", "8187");
+                String portString = preferences.getString("settings_port", "8080");
                 
                 // if failed, it means settings is broken.
                 assert(cameraIdString != null && previewSizeString != null && rangeString != null);
