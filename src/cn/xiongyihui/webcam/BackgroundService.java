@@ -3,6 +3,7 @@ package cn.xiongyihui.webcam;
 import java.io.IOException;
 
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
@@ -149,7 +150,7 @@ public class BackgroundService extends Service {
         SurfaceHolder surfaceHolder = mSurfaceView.getHolder();
         surfaceHolder.addCallback(callback);
         
-        mPort = PreferenceManager.getDefaultSharedPreferences(this).getString("settings_port", "8080");
+        mPort = PreferenceManager.getDefaultSharedPreferences(this).getString("settings_port", "8187");
 
         // Display a notification about us starting.  We put an icon in the status bar.
         showNotification();
@@ -193,6 +194,10 @@ public class BackgroundService extends Service {
         // CharSequence text = getText(R.string.service_started);
         CharSequence text = "View webcam at " + getIpAddr() + ":" + mPort;
 
+		//Creating manager to show notification
+		NotificationManager manager;
+		manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
         // Set the icon, scrolling text and timestamp
         Notification notification = new Notification(R.drawable.ic_stat_webcam, text,
                 System.currentTimeMillis());
@@ -201,12 +206,28 @@ public class BackgroundService extends Service {
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, MainActivity.class), 0);
 
-        // Set the info for the views that show in the notification panel.
+		//Get builder to build up notification interface
+		
+		Notification.Builder builder = new Notification.Builder(BackgroundService.this);
+		
+        /*// Set the info for the views that show in the notification panel.
         notification.setLatestEventInfo(this, getText(R.string.app_name),
-                       text, contentIntent);
+                       text, contentIntent); 
 
         // Send the notification.
-        startForeground( R.string.service_started, notification);
+        startForeground( R.string.service_started, notification); /**/
+		builder.setAutoCancel(false);
+		builder.setTicker("ticker");
+		builder.setContentTitle(getText(R.string.app_name));               
+		builder.setContentText(text);
+		builder.setSmallIcon(R.drawable.ic_stat_webcam);
+		builder.setContentIntent(contentIntent);
+		builder.setOngoing(true);
+		builder.setNumber(100);
+		builder.build();
+
+		notification = builder.getNotification();
+		manager.notify(11, notification);
     }
     
     public String getIpAddr() {
