@@ -3,6 +3,7 @@ package cn.xiongyihui.webcam;
 import java.io.IOException;
 
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
@@ -207,7 +208,7 @@ public class BackgroundService extends Service {
 
 		//Get builder to build up notification interface
 		
-		Notification.Builder builder = new Notification.Builder(MainActivity.this);
+		Notification.Builder builder = new Notification.Builder(BackgroundService.this);
 		
         /*// Set the info for the views that show in the notification panel.
         notification.setLatestEventInfo(this, getText(R.string.app_name),
@@ -220,7 +221,7 @@ public class BackgroundService extends Service {
 		builder.setContentTitle(getText(R.string.app_name));               
 		builder.setContentText(text);
 		builder.setSmallIcon(R.drawable.ic_stat_webcam);
-		builder.setContentIntent(pendingIntent);
+		builder.setContentIntent(contentIntent);
 		builder.setOngoing(true);
 		builder.setNumber(100);
 		builder.build();
