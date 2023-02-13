@@ -202,9 +202,20 @@ public class BackgroundService extends Service {
                 new Intent(this, MainActivity.class), 0);
 
         // Set the info for the views that show in the notification panel.
-        notification.setLatestEventInfo(this, getText(R.string.app_name),
-                       text, contentIntent);
+        Notification.Builder builder = new Notification.Builder(BackgroundService.this);
+        builder.setAutoCancel(false);
+        builder.setTicker("R");
+        builder.setContentTitle(getText(R.string.app_name));               
+        builder.setContentText(text);
+        builder.setSmallIcon(R.drawable.ic_launcher);
+        builder.setContentIntent(contentIntent);
+        builder.setOngoing(true);
+        builder.setSubText("Running...");   //API level 16
+        builder.setNumber(100);
+        builder.build();
 
+        notication = builder.getNotification();
+ 
         // Send the notification.
         startForeground( R.string.service_started, notification);
     }
